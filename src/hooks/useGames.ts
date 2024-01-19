@@ -3,6 +3,7 @@ import { GameQuery } from "../App";
 import APIClient from "../services/api-client";
 import { FetchRresponse } from "../services/api-client";
 import { Platform } from "../hooks/usePlatform";
+import ms from "ms";
 
 const apiClient = new APIClient<Game>("/games");
 export interface Game {
@@ -31,6 +32,7 @@ const useGames = (gameQuery: GameQuery) =>
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.next ? allPages.length + 1 : undefined;
     },
+    staleTime: ms("24h"),
   });
 
 export default useGames;
